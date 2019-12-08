@@ -1,144 +1,145 @@
-# CS450P1
-Project1
-==============================================================================
-CS 450 development and testing infrastructure
-==============================================================================
-This testing infrastructure is based on the automated testing used for the
-Pintos OS. Insert usual disclaimer here that the copyright is theirs...
-==============================================================================
+                     +---------------------------+
+                     |          CS 450           |
+                     | PROJECT 1: MULTITHREADING |
+                     +---------------------------+
 
-This development infrastructure uses the "make" utility to compile, execute,
-and validate project code automatically. You must have standard GNU tools
-installed, including gcc, make, and perl. To build your project, you must edit
-the Make.vars and Make.src files as described below. After you edit these and
-compile your code, you can also use make to run test cases and automatically
-check the output of your code. That process is described below, as well.
+---- GROUP ----
+
+>> Fill in the names and email addresses of your group members.
+
+Sean Baker <baker2sc@stu.cs.jmu.edu>
 
 
-=========
-Make.vars
-=========
+---- PRELIMINARIES ----
 
-This file defines 3 variables:
+>> If you have any preliminary comments on your submission, notes for the
+>> TAs, or extra credit, please give them here.
 
-  * EXENAME - the name of the executable to build from compiled objects
-  * SRC_SUBDIRS - the directories where source code resides
-  * TEST_SUBDIRS - the location of the tests directory
-
-You must provide a single EXENAME after the = in the file. This is the name of
-the executable that will be created (in the build/ directory) from your compiled
-code. You should NOT change the TEST_SUBDIRS.
-
-For the SRC_SUBDIRS, you will identify all directories that contain source code
-to compile. For instance, if your src/ directory includes main, cmdline/parse,
-cmdline/check, and output, then you would have:
-
-SRC_SUBDIRS = src/main src/cmdline/parse src/cmdline/check src/output
-
-Only code that exists in these directories will be compiled.
+>> Please cite any offline or online sources you consulted while
+>> preparing your submission, other than the project documentation, course
+>> text, lecture notes, and course staff.
 
 
-========
-Make.src
-========
+                             ========
+                             PTHREADS
+                             ========
 
-This file enumerates all of the source code files to compile. You MUST specify
-them manually; these scripts are not set up to find them automatically. For
-each of the SRC_SUBDIRS, you should have a variable that is the name of the
-directory with _SRC appended. Note that += is used for concatenation. For
-instance, you might have:
+---- DATA STRUCTURES ----
 
-src/main_SRC  = src/main/hello.c
-src/main_SRC += src/main/threads.c
-src/main_SRC += src/main/errors.c
-
-If you only have a couple of files, you can combine them all into a single line:
-
-src/main_SRC  = src/main/hello.c src/main/threads.c src/main/errors.c
-
-Keep in mind, though, that you should restrict lines of text to 80 characters or
-less. So if you've got more than 2 or 3 source files, you should put them on
-different lines as shown above.
-
-REMEMBER that only files listed here will be compiled. If you don't list it
-here, make will have no idea that your code exists.
+>> A1: Copy here the declaration of the struct that you created to pass
+>> parameters to the new threads that get created. Explain why you selected
+>> these parameters.
 
 
-===========
-Other files
-===========
-
-There are other files in this directory that you should not modify:
-
-  * Make.config
-  * Makefile
-  * Makefile.build
 
 
-=======================
-Automated testing setup
-=======================
 
-To create a test case, you need to complete the following steps in the tests/
-subdirectory:
+---- ALGORITHMS ----
 
-1 - Add the test case name and arguments to Make.args. See that file for more
-    documentation.
-
-2 - Create a .ck file with the expected output. See basic.ck for an example.
-    The expected output should appear after the "check_expected" line and
-    before the EOF line. You should NOT have any additional blank lines unless
-    that is expected in your output. Note that the file should look exactly like
-    basic.ck except for the output specified.
+>> A2: Copy here the declaration of the function that runs inside the new
+>> thread. Explain in pseudocode and comments how you get to the parameters
+>> passed to the function.
 
 
-=================
-Automated testing
-=================
 
-Assuming you have set everything up correctly, you are now set to run your test
-cases. Note that you MUST have a compiled executable prior to running a test
-case. You get this by running "make" in your project directory, which will
-create the build/ subdirectory and put your executable there. If the compilation
-fails, you must debug it BEFORE trying anything else.
 
-Assuming your compilation was successful, you should cd into the build/
-directory. From there, you can run test cases in a few different ways. First,
-if you want to run the test case but without seeing a pass/fail message, do
-the following (assuming you are testing the tests/basic.ck test case):
 
-  make tests/basic.output
 
-This will run the basic test case and redirect output to
-build/tests/basic.output. You can manually inspect the output there if you want.
-If you want to run the test case in a more meaningful way to determine if it was
-passed, do:
 
-  make tests/basic.result
 
-You will see either a "pass tests/basic" or "FAIL tests/basic" message. If the
-test case fails, you will also see a difference report. Lines that begin with a
-- are lines that were expected but your code failed to produce. Lines that begin
-with a + are lines that your code produced but were not expected.
 
-NOTE: If you see an "Error 127" message, that means you do NOT have a valid
-executable. You either did not compile the code with make or you had a compiler
-error. You can fix this by running "make" in either the project directory or the
-build/ directory.
 
-Lastly, if you have a lot of test cases that you want to run, you can run them
-all by doing:
 
-  make check
 
-This will give you a report of which test cases you pass and which ones you
-fail.
 
-NOTE: If main() ever returns a non-zero value, that indicates an error. For
-instance, if there is an error parsing the command line arguments, the program
-will abort and return an error message. In this case, running "make check" will
-stop on the test cases where that happens, because the make utility stops when
-it encounters an error. You can tell make to ignore errors and run the other
-test cases by doing:
+>> A3: The parent thread needs to calculate the total number of iterationsen
+>> computed in the Mandelbrot calculation. In the multithreaded version, each
+>> child thread must return this value to the parent somehow. How do you
+>> accomplish this?
 
-  make -i check
+
+
+
+
+
+
+
+
+
+
+
+
+
+---- TEST CASES ----
+
+>> A4: Add three additional test cases to the tests/ directory and add them to
+>> the tests/Make.args file as required. In your test cases, examine different
+>> coordinates to use as parameters. Can you find any parameters that produce
+>> interesting images?
+
+
+---- PERFORMANCE ----
+
+>> NOTE: This part will make more sense if you run these tests on either stu or
+>> one of the machines in the lab. If you try to run these on a virtual machine,
+>> you will not see any speedup. You should clone your repository in the lab or
+>> from your $HOME directory on stu and run these tests there.
+
+
+>> A5: Execute the program with the parameters for the 4 original test cases
+>> (basic.ck, mandel2.ck, mandel3.ck, and mandel4.ck), both with Pthreads and
+>> without. With Pthreads, use 10 threads total. Use the "time" utility (i.e.,
+>> put the work "time" at the beginning of the command line) to measure how
+>> long they take. Copy and paste your results here. For each of the test
+>> cases, compute the speedup.
+
+
+>> A6: Re-run the Pthreads test cases from (A5) with different numbers of
+>> threads (e.g., 2, 50, 500). What do you notice about the performance of
+>> these different parameters?
+
+
+---- LIMITATIONS ----
+
+>> A7: On your virtual machine, try running your Pthread version with -n 1440.
+>> Does anything unusual happen? If you run this on stu, do you get the same
+>> results? Explain what is happening. (Hint: Consider the implications of a
+>> 32-bit vs. 64-bit address space. It might also be helpful to look at what
+>> you can learn from doing ulimit -a on the command line.)
+
+The virtual machine. since the virtual machine is running 64-bit instructions cannot be emulated. This  sysl tem to crash when the x86 processor tried to run those x64 instructions. 
+
+>> A8: On the command-line, do ulimit -u 200, then run one of the test cases
+>> again with -n 288. What happens and why? (Hint: Again, look at ulimit -a
+>> to see what you can lean.)
+
+
+
+                             ======
+                             OpenMP
+                             ======
+
+---- ALGORITHMS ----
+
+>> B1: Copy here your OpenMP translation of the unithreaded code. Explain how
+>> you assigned rows to the individual threads and how you specified the numberul
+>> of threads to use.
+#pragma omp parallel
+{	
+#pragma omp for reduction(+:total_iters) private(j, i, x, y, iters, b, g ,r)
+
+openMP acts as a wrapper for Pthreads. At runtime the compiler will  will calculate the code in the for loop to determine the number of worker thre ads, unless this is specified by OMP_SET_NUM_threads. #pragma omp for maps the iterations of the loop to the threads as needed. by default all the variables are shared except for the for loop variables in the parrallel section of the loop.
+
+>> NOTE: As before, the performance test makes more sense if you have multicore
+>> or multiprocessor systems, not a virtual machine.
+
+
+>> B2: Repeat (A5) comparing your OpenMP implementation with the original
+>> unithreaded implementation. Do you notice any significant differences
+>> between the Pthread performance and the OpenMP performance? Why or why not?
+
+
+>> B3: Repeat (A6) with OpenMP. How do these results compare with what you saw
+>> for Pthreads?
+
+
